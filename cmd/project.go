@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"lazy-go/internal/errorx"
 	"lazy-go/util"
 
 	"github.com/spf13/cobra"
@@ -29,7 +30,7 @@ var projectNew = &cobra.Command{
 		if len(args) == 0 {
 			name, err := util.GetValueFromInput("project name")
 			if err != nil {
-				color.Red("project name get failed: %s", err.Error())
+				color.Red("%v: %s", errorx.SDKProjectNameGetFailed, err.Error())
 				return
 			}
 			options.Name = name.String()
@@ -37,18 +38,16 @@ var projectNew = &cobra.Command{
 
 		projectType, err := util.GetValueFromSelect("project type", []string{"API", "gRPC"})
 		if err != nil {
-			color.Red("project type get failed: %s", err.Error())
+			color.Red("%v: %s", errorx.SDKProjectTypeGetFailed, err.Error())
 			return
 		}
 
 		options.Type = projectType.String()
 
 		if err := project.New(options); err != nil {
-			color.Red("project init failed: %s", err.Error())
+			color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
 			return
 		}
-
-		fmt.Println(options)
 	},
 }
 

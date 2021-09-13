@@ -1,32 +1,34 @@
 package project
 
 import (
-	"github.com/fatih/color"
+	"lazy-go/internal/errorx"
 	"lazy-go/util"
-)
-
-const (
-	//defaultProjectRepo = "https://github.com/NICEXAI/quick-comment"
 )
 
 // Options new project options
 type Options struct {
 	Name string // project name
-	Type string // project type, default:normal
+	Type string // project type: API、gRPC
 }
 
 // New crate a new project
 func New(options Options) error {
-	var (
-		currentPath string
-		err         error
-	)
-
-	currentPath, err = util.GetCurrentPath()
+	projectDir, err := util.GetProjectPath(options.Name)
 	if err != nil {
 		return err
 	}
+	if !util.IsFolderExist(projectDir) {
+		return errorx.SDKProjectAlreadyExist
+	}
 
-	color.Green(currentPath)
+	switch options.Type {
+	case "API":
+		return NewAPIProject(APIOptions{
+			Name: options.Name,
+			Dir:  projectDir,
+		})
+	case "gRPC":
+		return NewGRPCProject()
+	}
 	return nil
 }
