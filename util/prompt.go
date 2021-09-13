@@ -5,8 +5,17 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
-// GetStringFromInput get string from input
-func GetStringFromInput(label string) (string, error) {
+// Prompt prompt
+type Prompt struct {
+	originValue string // 原始值
+}
+
+func (p Prompt) String() string {
+	return p.originValue
+}
+
+// GetValueFromInput get value from input
+func GetValueFromInput(label string) (Prompt, error) {
 	prompt := promptui.Prompt{
 		Label: label,
 		Validate: func(s string) error {
@@ -17,5 +26,25 @@ func GetStringFromInput(label string) (string, error) {
 		},
 	}
 
-	return prompt.Run()
+	origin, err := prompt.Run()
+	if err != nil {
+		return Prompt{}, err
+	}
+
+	return Prompt{originValue: origin}, nil
+}
+
+// GetValueFromSelect get value from select
+func GetValueFromSelect(label string, options []string) (Prompt, error) {
+	prompt := promptui.Select{
+		Label: label,
+		Items: options,
+	}
+
+	_, origin, err := prompt.Run()
+	if err != nil {
+		return Prompt{}, err
+	}
+
+	return Prompt{originValue: origin}, nil
 }

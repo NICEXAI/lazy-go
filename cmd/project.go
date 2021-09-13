@@ -20,37 +20,38 @@ var projectCmd = &cobra.Command{
 	},
 }
 
-var (
-	projectType string
-)
-
 var projectNew = &cobra.Command{
 	Use:   "new",
 	Short: "crate a new project",
 	Run: func(cmd *cobra.Command, args []string) {
-		options := project.Options{
-			Type: projectType,
-		}
+		options := project.Options{}
 
 		if len(args) == 0 {
-			name, err := util.GetStringFromInput("project name")
+			name, err := util.GetValueFromInput("project name")
 			if err != nil {
 				color.Red("project name get failed: %s", err.Error())
 				return
 			}
-			color.Blue(name)
+			options.Name = name.String()
 		}
+
+		projectType, err := util.GetValueFromSelect("project type", []string{"API", "gRPC"})
+		if err != nil {
+			color.Red("project type get failed: %s", err.Error())
+			return
+		}
+
+		options.Type = projectType.String()
 
 		if err := project.New(options); err != nil {
 			color.Red("project init failed: %s", err.Error())
 			return
 		}
-		fmt.Println(args, projectType)
+
+		fmt.Println(options)
 	},
 }
 
 func init() {
-	projectNew.Flags().StringVarP(&projectType, "type", "t", "normal", "project type")
-
 	projectCmd.AddCommand(projectNew)
 }
