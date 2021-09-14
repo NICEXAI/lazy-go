@@ -2,6 +2,7 @@ package util
 
 import (
 	"os"
+	"os/exec"
 	"path"
 	"strings"
 )
@@ -45,4 +46,23 @@ func IsFolderExist(dir string) bool {
 		return false
 	}
 	return s.IsDir()
+}
+
+// GetGoPath get go path from env
+func GetGoPath() (string, error) {
+	cmd := exec.Command("go", "env", "GOPATH")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		return "", err
+	}
+	return strings.ReplaceAll(string(out[:len(out)-1]), `\`, `/`), nil
+}
+
+// GetGoModulePath get go module path from local
+func GetGoModulePath() (string, error) {
+	goPath, err := GetGoPath()
+	if err != nil {
+		return "", err
+	}
+	return goPath + "/pkg/mod", nil
 }
