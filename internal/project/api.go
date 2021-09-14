@@ -5,7 +5,7 @@ import (
 	"lazy-go/util"
 )
 
-const apiProjectRepo = "github.com/NICEXAI/quick-comment"
+const apiProjectRepo = "github.com/NICEXAI/lazy-scaffold-api"
 
 // APIOptions api project options
 type APIOptions struct {
@@ -17,7 +17,6 @@ type APIOptions struct {
 // NewAPIProject create a new API project
 func NewAPIProject(options APIOptions) error {
 	color.Blue("git clone %s --recursive", apiProjectRepo)
-	color.Blue(options.Dir)
 
 	return util.CloneProjectFromRemote(options.Dir, apiProjectRepo)
 }

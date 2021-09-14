@@ -7,8 +7,9 @@ import (
 
 // Options new project options
 type Options struct {
-	Name string // project name
-	Type string // project type: API、gRPC
+	Name     string // project name
+	Type     string // project type: API、gRPC
+	IsForced bool   // forced new project
 }
 
 // New crate a new project
@@ -17,8 +18,14 @@ func New(options Options) error {
 	if err != nil {
 		return err
 	}
-	if util.IsFolderExist(projectDir) {
+	if !options.IsForced && util.IsFolderExist(projectDir) {
 		return errorx.SDKProjectAlreadyExist
+	}
+
+	if options.IsForced && util.IsFolderExist(projectDir) {
+		if err = util.RemoveIfExist(projectDir); err != nil {
+			return err
+		}
 	}
 
 	modPath, err := util.GetGoModulePath()

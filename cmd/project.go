@@ -2,13 +2,13 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/fatih/color"
+
 	"lazy-go/internal/errorx"
+	"lazy-go/internal/project"
 	"lazy-go/util"
 
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
-
-	"lazy-go/internal/project"
 )
 
 var projectCmd = &cobra.Command{
@@ -20,6 +20,8 @@ var projectCmd = &cobra.Command{
 		}
 	},
 }
+
+var isForced bool
 
 var projectNew = &cobra.Command{
 	Use:   "new",
@@ -33,7 +35,7 @@ var projectNew = &cobra.Command{
 				color.Red("%v: %s", errorx.SDKProjectNameGetFailed, err.Error())
 				return
 			}
-			options.Name = name.String()
+			options.Name = name
 		}
 
 		projectType, err := util.GetValueFromSelect("project type", []string{"API", "gRPC"})
@@ -42,7 +44,8 @@ var projectNew = &cobra.Command{
 			return
 		}
 
-		options.Type = projectType.String()
+		options.Type = projectType
+		options.IsForced = isForced
 
 		if err := project.New(options); err != nil {
 			color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
@@ -52,5 +55,7 @@ var projectNew = &cobra.Command{
 }
 
 func init() {
+	projectNew.Flags().BoolVarP(&isForced, "force", "f", false, "forced new project")
+
 	projectCmd.AddCommand(projectNew)
 }

@@ -1,50 +1,51 @@
 package util
 
 import (
-	"errors"
-	"github.com/manifoldco/promptui"
+	"github.com/AlecAivazis/survey/v2"
 )
 
-// Prompt prompt
-type Prompt struct {
-	originValue string // 原始值
-}
-
-func (p Prompt) String() string {
-	return p.originValue
-}
-
 // GetValueFromInput get value from input
-func GetValueFromInput(label string) (Prompt, error) {
-	prompt := promptui.Prompt{
-		Label: label,
-		Validate: func(s string) error {
-			if len(s) == 0 {
-				return errors.New(" project name cannot be empty")
-			}
-			return nil
-		},
+func GetValueFromInput(label string) (string, error) {
+	origin := ""
+
+	prompt := &survey.Input{
+		Message: label + ": ",
+	}
+	if err := survey.AskOne(prompt, &origin); err != nil {
+		return "", err
 	}
 
-	origin, err := prompt.Run()
-	if err != nil {
-		return Prompt{}, err
-	}
-
-	return Prompt{originValue: origin}, nil
+	return origin, nil
 }
 
 // GetValueFromSelect get value from select
-func GetValueFromSelect(label string, options []string) (Prompt, error) {
-	prompt := promptui.Select{
-		Label: label,
-		Items: options,
+func GetValueFromSelect(label string, options []string) (string, error) {
+	origin := ""
+
+	prompt := &survey.Select{
+		Message: label + ": ",
+		Options: options,
 	}
 
-	_, origin, err := prompt.Run()
-	if err != nil {
-		return Prompt{}, err
+	if err := survey.AskOne(prompt, &origin); err != nil {
+		return "", err
 	}
 
-	return Prompt{originValue: origin}, nil
+	return origin, nil
+}
+
+// GetValueFromMultiSelect get value from multi select
+func GetValueFromMultiSelect(label string, options []string) ([]string, error) {
+	var origin []string
+
+	prompt := &survey.Select{
+		Message: label + ": ",
+		Options: options,
+	}
+
+	if err := survey.AskOne(prompt, &origin); err != nil {
+		return nil, err
+	}
+
+	return origin, nil
 }
