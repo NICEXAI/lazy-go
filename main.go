@@ -1,7 +1,7 @@
 package main
 
 import (
-	"lazy-go/cmd"
+	"github.com/NICEXAI/lazy-go/cmd"
 )
 
 func main() {

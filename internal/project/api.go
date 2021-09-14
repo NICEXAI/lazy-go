@@ -1,8 +1,8 @@
 package project
 
 import (
+	"github.com/NICEXAI/lazy-go/util"
 	"github.com/fatih/color"
-	"lazy-go/util"
 )
 
 const apiProjectRepo = "github.com/NICEXAI/lazy-scaffold-api"

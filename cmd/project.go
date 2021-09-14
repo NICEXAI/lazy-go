@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 
-	"lazy-go/internal/errorx"
-	"lazy-go/internal/project"
-	"lazy-go/util"
+	"github.com/NICEXAI/lazy-go/internal/errorx"
+	"github.com/NICEXAI/lazy-go/internal/project"
+	"github.com/NICEXAI/lazy-go/util"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"

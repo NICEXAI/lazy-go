@@ -1,8 +1,8 @@
 package project
 
 import (
-	"lazy-go/internal/errorx"
-	"lazy-go/util"
+	"github.com/NICEXAI/lazy-go/internal/errorx"
+	"github.com/NICEXAI/lazy-go/util"
 )
 
 // Options new project options
