@@ -36,6 +36,8 @@ var projectNew = &cobra.Command{
 				return
 			}
 			options.Name = name
+		} else {
+			options.Name = args[0]
 		}
 
 		projectType, err := util.GetValueFromSelect("project type", []string{"API", "gRPC"})

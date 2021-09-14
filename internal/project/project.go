@@ -18,6 +18,7 @@ func New(options Options) error {
 	if err != nil {
 		return err
 	}
+
 	if !options.IsForced && util.IsFolderExist(projectDir) {
 		return errorx.SDKProjectAlreadyExist
 	}
