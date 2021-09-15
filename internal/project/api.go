@@ -1,7 +1,9 @@
 package project
 
 import (
+	"encoding/json"
 	"github.com/NICEXAI/lazy-go/util"
+	"github.com/NICEXAI/lazy-template-engine"
 	"github.com/fatih/color"
 )
 
@@ -18,5 +20,26 @@ type APIOptions struct {
 func NewAPIProject(options APIOptions) error {
 	color.Blue("git clone %s --recursive", apiProjectRepo)
 
-	return util.CloneProjectFromRemote(options.Dir, apiProjectRepo)
+	//clone repo to local
+	if err := util.CloneProjectFromRemote(options.Dir, apiProjectRepo); err != nil {
+		return err
+	}
+
+	//parse template
+	var params map[string]string
+
+	bData, err := json.Marshal(options)
+	if err != nil {
+		return err
+	}
+
+	if err = json.Unmarshal(bData, &params); err != nil {
+		return err
+	}
+
+	if err = lazyTemplate.ParseAll(options.Dir, options.Dir, params); err != nil {
+		return err
+	}
+
+	return nil
 }
