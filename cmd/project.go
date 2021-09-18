@@ -27,7 +27,10 @@ var projectNew = &cobra.Command{
 	Use:   "new",
 	Short: "crate a new project",
 	Run: func(cmd *cobra.Command, args []string) {
-		options := project.Options{}
+		var (
+			projectName string
+			projectType string
+		)
 
 		if len(args) == 0 {
 			name, err := util.GetValueFromInput("project name")
@@ -35,23 +38,70 @@ var projectNew = &cobra.Command{
 				color.Red("%v: %s", errorx.SDKProjectNameGetFailed, err.Error())
 				return
 			}
-			options.Name = name
+			projectName = name
 		} else {
-			options.Name = args[0]
+			projectName = args[0]
 		}
 
-		projectType, err := util.GetValueFromSelect("project type", []string{"API", "gRPC"})
+		projectDir, err := util.GetProjectPath(projectName)
+		if err != nil {
+			return
+		}
+
+		if !isForced && util.IsFolderExist(projectDir) {
+			color.Red("%v", errorx.SDKProjectAlreadyExist)
+			return
+		}
+
+		if isForced && util.IsFolderExist(projectDir) {
+			if err = util.RemoveIfExist(projectDir); err != nil {
+				return
+			}
+		}
+
+		projectType, err = util.GetValueFromSelect("project type", []string{"API", "gRPC"})
 		if err != nil {
 			color.Red("%v: %s", errorx.SDKProjectTypeGetFailed, err.Error())
 			return
 		}
 
-		options.Type = projectType
-		options.IsForced = isForced
+		switch projectType {
+		case "API":
+			apiOptions := project.APIOptions{
+				Name: projectName,
+				Dir:  projectDir,
+			}
 
-		if err := project.New(options); err != nil {
-			color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
-			return
+			//init api project
+			if err = project.InitAPIProject(apiOptions); err != nil {
+				color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
+				return
+			}
+
+			//get pkg list
+			var pkgList []string
+
+			pkgList, err = project.GetPkgFromAPIProject(apiOptions)
+			if err != nil {
+				color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
+				return
+			}
+
+			//select pkg
+			selectPkgList, err := util.GetValueFromMultiSelect("package install:", pkgList)
+			if err != nil {
+				color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
+				return
+			}
+
+			if err = project.InstallPkgToApiProject(apiOptions, selectPkgList); err != nil {
+				color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
+				return
+			}
+
+			color.Green("API project created success")
+		case "gRPC":
+			project.NewGRPCProject()
 		}
 	},
 }

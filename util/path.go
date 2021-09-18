@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -37,6 +38,15 @@ func MkdirIfNotExist(dir string) error {
 	}
 
 	return nil
+}
+
+// RemoveFolderIfExist deletes the folder if it is exists
+func RemoveFolderIfExist(dir string) error {
+	if !IsFolderExist(dir) {
+		return nil
+	}
+	fmt.Println(dir)
+	return os.RemoveAll(dir)
 }
 
 // IsFolderExist determine if a folder already exists

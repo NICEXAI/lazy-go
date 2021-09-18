@@ -38,7 +38,7 @@ func GetValueFromSelect(label string, options []string) (string, error) {
 func GetValueFromMultiSelect(label string, options []string) ([]string, error) {
 	var origin []string
 
-	prompt := &survey.Select{
+	prompt := &survey.MultiSelect{
 		Message: label + ": ",
 		Options: options,
 	}
