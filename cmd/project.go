@@ -101,7 +101,10 @@ var projectNew = &cobra.Command{
 
 			color.Green("API project created success")
 		case "gRPC":
-			project.NewGRPCProject()
+			if err := project.NewGRPCProject(); err != nil {
+				color.Red("%v: %s", errorx.SDKProjectInitFailed, err.Error())
+				return
+			}
 		}
 	},
 }

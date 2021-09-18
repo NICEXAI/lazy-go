@@ -90,7 +90,7 @@ func InstallPkgToApiProject(options APIOptions, pkgList []string) error {
 			continue
 		}
 		if !util.Include(fileInfo.Name(), pkgList) {
-			util.RemoveFolderIfExist(path.Join(pkgDir, fileInfo.Name()))
+			return util.RemoveFolderIfExist(path.Join(pkgDir, fileInfo.Name()))
 		}
 	}
 
