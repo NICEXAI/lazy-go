@@ -21,7 +21,7 @@ func RemoveIfExist(filename string) error {
 	if !IsFileExist(filename) {
 		return nil
 	}
-
+	fmt.Println(filename)
 	return os.Remove(filename)
 }
 

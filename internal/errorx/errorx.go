@@ -18,4 +18,9 @@ const (
 	SDKProjectInitFailed Error = "project init failed"
 	// SDKProjectAlreadyExist project already exists
 	SDKProjectAlreadyExist Error = "project already exists"
+	// SDKProjectNotExist project not exist
+	SDKProjectNotExist Error = "project not exist"
+
+	// SDKPkgNotExist pkg folder not exist
+	SDKPkgNotExist Error = "pkg folder not exist"
 )
