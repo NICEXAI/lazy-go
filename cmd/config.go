@@ -30,6 +30,22 @@ var configSync = &cobra.Command{
 	},
 }
 
+var configWatch = &cobra.Command{
+	Use:   "watch",
+	Short: "listening config changes and auto-sync",
+	Run: func(cmd *cobra.Command, args []string) {
+		fsTask, err := config.Watch()
+		if err != nil {
+			color.Red("%v: %s", errorx.SDKConfigWatchFailed, err.Error())
+			return
+		}
+
+		color.Blue("config watch init success...")
+		fsTask.Wait()
+	},
+}
+
 func init() {
 	configCmd.AddCommand(configSync)
+	configCmd.AddCommand(configWatch)
 }
