@@ -65,7 +65,7 @@ func Watch() (*fstask.FsTask, error) {
 		return nil, err
 	}
 
-	fsTask.Add(fstask.Task{
+	if err = fsTask.Add(fstask.Task{
 		Rule:   ".*settings.yaml",
 		Action: []string{"create", "write"},
 		Handle: func(event fsnotify.Event) {
@@ -75,7 +75,9 @@ func Watch() (*fstask.FsTask, error) {
 			}
 			log.Println("config update success")
 		},
-	})
+	}); err != nil {
+		return nil, err
+	}
 
 	return fsTask, nil
 }
