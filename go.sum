@@ -44,6 +44,12 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/Microsoft/go-winio v0.4.14/go.mod h1:qXqCSQ3Xa7+6tgxaGTIe4Kpcdsi+P8jBhyzoq1bpyYA=
 github.com/Microsoft/go-winio v0.4.16 h1:FtSW/jqD+l4ba5iPBj9CODVtgfYAD8w2wS923g/cFDk=
 github.com/Microsoft/go-winio v0.4.16/go.mod h1:XB6nPKklQyQ7GC9LdcBEcBl8PF76WugXOPRXwdLnMv0=
+github.com/NICEXAI/go2struct v0.0.2 h1:SM+AjQtzWBWL1IiPJdfqLWT/U75T4JeAEfNI/fynMMQ=
+github.com/NICEXAI/go2struct v0.0.2/go.mod h1:imgIPpQutZf+TjuJJdmHuXaWvJFndL3IJmQ21fy4HE4=
+github.com/NICEXAI/go2struct v0.0.3 h1:ir9a0jz+6z7N0e7u5FERd5cvLwMNlvJSCoVfS8VY/SI=
+github.com/NICEXAI/go2struct v0.0.3/go.mod h1:imgIPpQutZf+TjuJJdmHuXaWvJFndL3IJmQ21fy4HE4=
+github.com/NICEXAI/go2struct v0.0.4 h1:sLtvuUqYNNM0YLf1HdmwZGJtm8C0fKOZywkgHlgnZ48=
+github.com/NICEXAI/go2struct v0.0.4/go.mod h1:imgIPpQutZf+TjuJJdmHuXaWvJFndL3IJmQ21fy4HE4=
 github.com/NICEXAI/lazy-template-engine v0.0.1 h1:mW4qXlbJgk9q1WQ8j1NSZtfDTiK75Pa8hfRZ7ce9hiw=
 github.com/NICEXAI/lazy-template-engine v0.0.1/go.mod h1:C4xmt5DulpqAsAo6BvUlyMDlAxJ8/tPI9E7JP3ThLTk=
 github.com/Netflix/go-expect v0.0.0-20180615182759-c93bf25de8e8 h1:xzYJEypr/85nBpB11F9br+3HUrpgb+fcm5iADzXXYEw=
