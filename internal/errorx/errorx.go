@@ -23,4 +23,9 @@ const (
 
 	// SDKPkgNotExist pkg folder not exist
 	SDKPkgNotExist Error = "pkg folder not exist"
+
+	// SDKConfigSyncFailed config auto-sync failed
+	SDKConfigSyncFailed Error = "config auto-sync failed"
+	// SDKConfigFolderNotExist config folder not exist
+	SDKConfigFolderNotExist Error = "config folder not exist"
 )

@@ -23,6 +23,7 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(projectCmd)
+	rootCmd.AddCommand(configCmd)
 }
 
 // Execute entrypoint
