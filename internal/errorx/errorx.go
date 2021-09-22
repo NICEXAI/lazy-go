@@ -28,4 +28,8 @@ const (
 	SDKConfigSyncFailed Error = "config auto-sync failed"
 	// SDKConfigFolderNotExist config folder not exist
 	SDKConfigFolderNotExist Error = "config folder not exist"
+	// SDKConfigWatchFailed config watch failed
+	SDKConfigWatchFailed Error = "config watch failed"
+	// SDKConfigGenerateFailed config generate failed
+	SDKConfigGenerateFailed Error = "config generate failed"
 )
