@@ -17,6 +17,16 @@ func GetCurrentPath() (string, error) {
 	return strings.ReplaceAll(dir, `\`, `/`), nil
 }
 
+// GetFileAbsPath get file abs path
+func GetFileAbsPath(filePath string) string {
+	if path.IsAbs(filePath) {
+		return filePath
+	}
+
+	curPath, _ := GetCurrentPath()
+	return path.Join(curPath, filePath)
+}
+
 // GetProjectPath get project path
 func GetProjectPath(name string) (string, error) {
 	currentPath, err := GetCurrentPath()
@@ -25,6 +35,18 @@ func GetProjectPath(name string) (string, error) {
 	}
 
 	return path.Join(currentPath, name), nil
+}
+
+// GetFolderAbsPath get folder path
+func GetFolderAbsPath(filePath string) string {
+	pathArr := strings.Split(filePath, "/")
+	if len(pathArr) < 2 {
+		filePath = "./"
+	} else {
+		filePath = strings.Join(pathArr[:len(pathArr)-1], "/")
+	}
+
+	return GetFileAbsPath(filePath)
 }
 
 // MkdirIfNotExist makes directories if the input path is not exists

@@ -24,12 +24,12 @@ const (
 	// SDKPkgNotExist pkg folder not exist
 	SDKPkgNotExist Error = "pkg folder not exist"
 
-	// SDKConfigSyncFailed config auto-sync failed
-	SDKConfigSyncFailed Error = "config auto-sync failed"
-	// SDKConfigFolderNotExist config folder not exist
-	SDKConfigFolderNotExist Error = "config folder not exist"
-	// SDKConfigWatchFailed config watch failed
-	SDKConfigWatchFailed Error = "config watch failed"
+	// SDKConfigOriginFileFormatNotSupport origin file format is not supported
+	SDKConfigOriginFileFormatNotSupport Error = "origin file format is not supported"
+	// SDKConfigTargetFileFormatNotSupport target file format is not supported
+	SDKConfigTargetFileFormatNotSupport Error = "target file format is not supported"
+	// SDKConfigOriginFileNotExist origin file is not exist
+	SDKConfigOriginFileNotExist Error = "origin file is not exist"
 	// SDKConfigGenerateFailed config generate failed
 	SDKConfigGenerateFailed Error = "config generate failed"
 )
