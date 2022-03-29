@@ -2,9 +2,9 @@ package project
 
 import (
 	"encoding/json"
+	"github.com/NICEXAI/ghost"
 	"github.com/NICEXAI/lazy-go/internal/errorx"
 	"github.com/NICEXAI/lazy-go/util"
-	"github.com/NICEXAI/lazy-template-engine"
 	"github.com/fatih/color"
 	"os"
 	"path"
@@ -30,7 +30,7 @@ func InitAPIProject(options APIOptions) error {
 	}
 
 	//parse template
-	var params map[string]string
+	var params map[string]interface{}
 
 	bData, err := json.Marshal(options)
 	if err != nil {
@@ -41,7 +41,7 @@ func InitAPIProject(options APIOptions) error {
 		return err
 	}
 
-	if err = lazyTemplate.ParseAll(options.Dir, options.Dir, params); err != nil {
+	if err = ghost.ParseAll(options.Dir, options.Dir, params); err != nil {
 		return err
 	}
 

@@ -5,8 +5,8 @@ go 1.17
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.2
 	github.com/NICEXAI/fstask v0.0.2
+	github.com/NICEXAI/ghost v0.0.4
 	github.com/NICEXAI/go2struct v0.1.2
-	github.com/NICEXAI/lazy-template-engine v0.0.1
 	github.com/fatih/color v1.12.0
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/go-git/go-git/v5 v5.4.2
